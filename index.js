@@ -5,6 +5,9 @@ require('dotenv').config();
 // Crear el servidor de express
 const app = express();
 
+// Lectura y parseo del body
+app.use( express.json() );
+
 // Directorio publico
 app.use( express.static('public') )
 
