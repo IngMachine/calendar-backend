@@ -10,12 +10,8 @@ app.use( express.static('public') )
 
 
 // Rutas
-/*app.get('/', (req, res) => {
-    console.log('Se requiere el /')
-    res.json({
-        ok: true
-    })
-})*/
+app.use( '/api/auth', require('./routes/auth') );
+// TODO CRUD: Eventos
 
 
 // Escuchar peticiones
