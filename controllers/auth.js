@@ -3,19 +3,29 @@ const User = require('../models/User')
 
 
 const createUser = async(req = request, res = response) => {
+    const { email, password } = req.body;
 
     try {
-        const user = new User( req.body );
+        let user = await User.findOne({ email });
+        if ( user ) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'A user exists with this email'
+            })
+        }
+
+        user = new User( req.body );
         await user.save();
 
         res.status(201).json({
             ok: true,
-            msg: 'register'
+            uid: user.id,
+            name: user.name
         })
     } catch (err) {
         res.status(500).json({
             ok: false,
-            msg: 'Por favor hable con el administrador'
+            msg: 'Please talk to the administrator'
         })
     }
 
